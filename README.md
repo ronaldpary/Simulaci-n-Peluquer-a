@@ -1,2 +1,2 @@
-# Simulaci-n-Peluquer-a
+# Simulacion-Peluqueria
 Trabajo practico sobre los tiempos de atención en una peluquería.
