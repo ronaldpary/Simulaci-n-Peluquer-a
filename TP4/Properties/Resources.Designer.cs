@@ -63,6 +63,16 @@ namespace TP4.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap letra_inicial_pv_logo_design_plantilla_vectorial_pv_carta_logo_design_2ajyrn0 {
+            get {
+                object obj = ResourceManager.GetObject("letra_inicial_pv_logo_design_plantilla_vectorial_pv_carta_logo_design_2ajyrn0", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap R {
             get {
                 object obj = ResourceManager.GetObject("R", resourceCulture);

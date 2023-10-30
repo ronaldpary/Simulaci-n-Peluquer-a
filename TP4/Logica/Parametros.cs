@@ -17,8 +17,9 @@ namespace TP4.Logica
         public double veteranoAB = 13;
         public double veteranoBA = 12;
         public double veteranoBB = 18;
-        public double probabilidadAprendiz = 15;
-        public double probabilidadVeteranoA = 45;
+        public double probabilidadAprendiz = 0.15;
+        public double probabilidadVeteranoA = 0.45;
+        public double probabilidadVeteranoB = 0.40;
 
         #endregion
 

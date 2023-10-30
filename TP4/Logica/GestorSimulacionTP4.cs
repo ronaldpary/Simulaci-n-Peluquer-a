@@ -37,17 +37,19 @@ namespace TP4.Logica
         public double veteranoBA = 12;
         public double veteranoBB = 18;
 
-        public double probabilidadAp = 15;
-        public double probabilidadVA = 45;
+        public double probabilidadAp = 0.15;
+        public double probabilidadVA = 0.45;
+        public double probabilidadVB = 0.40;
 
         //Variables para los puntos pedidos, acumuladores y contadores
         private int contadorDias;
         private double acumuladorRecaudacion;
         private double promedioRecaudacion;
         private int contadorClientes;
-        private int contadorSillas;
+        private int contadorSillasAnterior;
 
         public bool fin = false;
+        public double numeroDia = 0;
 
         //Variable para cada fila x
         public Fila fila;
@@ -83,6 +85,7 @@ namespace TP4.Logica
             this.veteranoBB = parametros.veteranoBB;
             this.probabilidadAp = parametros.probabilidadAprendiz;
             this.probabilidadVA = parametros.probabilidadVeteranoA;
+            this.probabilidadVB = parametros.probabilidadVeteranoB;
             //Metodo para iniciar la simulacion
             comenzarSimulacion(dias, desde, hasta);
         }
@@ -93,7 +96,7 @@ namespace TP4.Logica
             actualizarEstados();
             actualizarColas();
 
-            double numeroDia = 0;
+            //double numeroDia = 0;
             double numeroSimulacion = 0;
             string nombreEvento = "Inicio";
 
@@ -106,8 +109,9 @@ namespace TP4.Logica
                 fin = false;
 
                 //Mientras haya tiempo para atender a un cliente
-                while (fin == false) //El veteranoA es el que tiene el menor tiempo de atencion//cambiar
+                while (fin == false) 
                 {
+
                     numeroDia = i + 1;
                     double siguienteTiempo = definirSiguienteTiempo(fila);
                     double relojAnterior = fila.Reloj;
@@ -172,11 +176,22 @@ namespace TP4.Logica
                         }                        
                     }
                     
-
+                    
                     actualizarColas();
                     actualizarEstados();
 
-                    if(numeroSimulacion >= desde && numeroSimulacion <= hasta)
+                    if (contadorSillasAnterior >= eventos.cantidadMaximaSillas())
+                    {
+                        fila.clientes_maximos = contadorSillasAnterior;
+                    }
+                    else
+                    {
+                        contadorSillasAnterior = eventos.cantidadMaximaSillas();
+                        fila.clientes_maximos = eventos.cantidadMaximaSillas();
+                    }
+
+
+                    if (numeroSimulacion >= desde && numeroSimulacion <= hasta)
                     {
                         interfaz.mostrarFila(fila, enElSistema, numeroDia, numeroSimulacion, nombreEvento);
                         cantFilasMostradas++;

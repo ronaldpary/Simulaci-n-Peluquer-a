@@ -35,23 +35,37 @@ namespace TP4.Presentacion
             txtVeteBB.Text = this.parametros.veteranoBB.ToString();
             txtProbabilidadA.Text = this.parametros.probabilidadAprendiz.ToString();
             txtProbabilidadVA.Text = this.parametros.probabilidadVeteranoA.ToString();
+            txtProbabilidadVB.Text = this.parametros.probabilidadVeteranoB.ToString();
         }
 
         private void btnComenzar_Click(object sender, EventArgs e)
         {
+            
             gestor = new GestorSimulacionTP4(this);
             if (txtSimulaciones.Text != "" && txtDesde.Text != "" && txtHasta.Text != "")
             {
-                int n = Convert.ToInt32(txtSimulaciones.Text);
-                int desde = Convert.ToInt32(txtDesde.Text);
-                int hasta = Convert.ToInt32(txtHasta.Text);
-                dgvEventos.Rows.Clear();
-                validarDatos(parametros);
-                gestor.iniciarSimulacion(Convert.ToInt32(txtSimulaciones.Text), this.parametros, Convert.ToInt32(txtDesde.Text), Convert.ToInt32(txtHasta.Text));
+                double probabilidadAp = Convert.ToDouble(txtProbabilidadA.Text);
+                double probabilidadVA = Convert.ToDouble(txtProbabilidadVA.Text);
+                double probabilidadVB = 1 - (probabilidadAp + probabilidadVA);
 
-                dgvEventos.SelectedRows[0].Selected = false;
-                dgvEventos.Rows[0].DefaultCellStyle.BackColor = Color.Yellow;
-                //dgvEventos.Rows[(hasta - desde) + 2].DefaultCellStyle.BackColor = Color.Yellow;
+                if (probabilidadVB < 0)
+                {
+                    MessageBox.Show("Las probabilidades no deben superar 1");
+                }
+                else
+                {
+                   
+                    dgvEventos.Rows.Clear();
+                    
+                    validarDatos(parametros);
+                    txtProbabilidadVB.Text = Convert.ToString(probabilidadVB);
+
+                    gestor.iniciarSimulacion(Convert.ToInt32(txtSimulaciones.Text), this.parametros, Convert.ToInt32(txtDesde.Text), Convert.ToInt32(txtHasta.Text));
+
+                    dgvEventos.SelectedRows[0].Selected = false;
+                    dgvEventos.Rows[0].DefaultCellStyle.BackColor = Color.Yellow;
+                    //dgvEventos.Rows[(hasta - desde) + 2].DefaultCellStyle.BackColor = Color.Yellow;
+                }
 
             }
             else
@@ -72,6 +86,7 @@ namespace TP4.Presentacion
             if (txtVeteBB.Text != "") { parametros.veteranoBB = Convert.ToDouble(txtVeteBB.Text); }
             if (txtProbabilidadA.Text != "") { parametros.probabilidadAprendiz = Convert.ToDouble(txtProbabilidadA.Text); }
             if (txtProbabilidadVA.Text != "") { parametros.probabilidadVeteranoA = Convert.ToDouble(txtProbabilidadVA.Text); }
+            if (txtProbabilidadVB.Text != "") { parametros.probabilidadVeteranoB = 1 - (Convert.ToDouble(txtProbabilidadA.Text) + Convert.ToDouble(txtProbabilidadVA.Text)); }
         }
 
         private void MostrarError(string error)
@@ -129,7 +144,6 @@ namespace TP4.Presentacion
                     {
                         dgvEventos.Rows[index].Cells["Estado" + i.ToString()].Value = (enElSistema[i].estadoCliente(enElSistema[i].estado) + "(" + enElSistema[i].numero + ")").ToString();
                         dgvEventos.Rows[index].Cells["HLLR" + i.ToString()].Value = Convert.ToDecimal(enElSistema[i].hora_refrigerio.ToString()).ToString("N");
-                        dgvEventos.Rows[index].Cells["HIA" + i.ToString()].Value = Convert.ToDecimal(enElSistema[i].hora_atencion.ToString()).ToString("N");
                     }
                     else
                     {
@@ -139,8 +153,6 @@ namespace TP4.Presentacion
                         int indiceColumna2 = dgvEventos.Columns.Add("HLLR" + i.ToString(), "HLLR");
                         dgvEventos.Rows[index].Cells[indiceColumna2].Value = Convert.ToDecimal(enElSistema[i].hora_refrigerio.ToString()).ToString("N");
 
-                        int indiceColumna3 = dgvEventos.Columns.Add("HIA" + i.ToString(), "HIA");
-                        dgvEventos.Rows[index].Cells[indiceColumna3].Value = Convert.ToDecimal(enElSistema[i].hora_atencion.ToString()).ToString("N");
                     }
                 }
             }

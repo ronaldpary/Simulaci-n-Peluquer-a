@@ -107,6 +107,8 @@
   <ItemGroup>
     <None Include="Resources\R.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Resources\letra-inicial-pv-logo-design-plantilla-vectorial-pv-carta-logo-design-2ajyrn0.jpg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

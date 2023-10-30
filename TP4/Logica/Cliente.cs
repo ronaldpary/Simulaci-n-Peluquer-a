@@ -13,8 +13,6 @@ namespace TP4.Logica
         public double estado { get; set; }
         public double hora_refrigerio { get; set; } = 0;
         public double peluquero_elegido { get; set; }
-        //public double tiempo_refri { get; set; }
-        public double hora_atencion { get; set; }
         #endregion
 
         #region Constructor

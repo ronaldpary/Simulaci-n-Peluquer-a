@@ -48,6 +48,9 @@
             this.guna2HtmlLabel1 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.txtSimulaciones = new Guna.UI2.WinForms.Guna2TextBox();
             this.gpDescripcionRespuesta = new Guna.UI2.WinForms.Guna2GroupBox();
+            this.guna2HtmlLabel9 = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            this.txtProbabilidadVB = new Guna.UI2.WinForms.Guna2TextBox();
+            this.guna2HtmlLabel8 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.txtVeteBB = new Guna.UI2.WinForms.Guna2TextBox();
             this.txtVeteBA = new Guna.UI2.WinForms.Guna2TextBox();
             this.txtVeteAB = new Guna.UI2.WinForms.Guna2TextBox();
@@ -68,8 +71,8 @@
             this.guna2GroupBox1 = new Guna.UI2.WinForms.Guna2GroupBox();
             this.guna2Panel2 = new Guna.UI2.WinForms.Guna2Panel();
             this.dgvEventos = new System.Windows.Forms.DataGridView();
-            this.Dia = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Numero = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Dia = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Evento = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Reloj = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.fin_dia = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -89,10 +92,8 @@
             this.cola_veteA = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.estado_veteB = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cola_veteB = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.contador_dias = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.total_recaudacion = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.promedio_recaudacion = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clientes_simultaneos = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clientes_maximos = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.guna2Panel1.SuspendLayout();
             this.gpDescripcionRespuesta.SuspendLayout();
@@ -144,7 +145,7 @@
             this.guna2HtmlLabel3.BackColor = System.Drawing.Color.Transparent;
             this.guna2HtmlLabel3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.guna2HtmlLabel3.ForeColor = System.Drawing.Color.Black;
-            this.guna2HtmlLabel3.Location = new System.Drawing.Point(70, 72);
+            this.guna2HtmlLabel3.Location = new System.Drawing.Point(74, 69);
             this.guna2HtmlLabel3.Name = "guna2HtmlLabel3";
             this.guna2HtmlLabel3.Size = new System.Drawing.Size(48, 18);
             this.guna2HtmlLabel3.TabIndex = 13;
@@ -154,7 +155,7 @@
             // 
             this.txtHasta.BorderRadius = 2;
             this.txtHasta.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.txtHasta.DefaultText = "";
+            this.txtHasta.DefaultText = "100";
             this.txtHasta.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
             this.txtHasta.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
             this.txtHasta.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
@@ -186,7 +187,7 @@
             // 
             this.txtDesde.BorderRadius = 2;
             this.txtDesde.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.txtDesde.DefaultText = "";
+            this.txtDesde.DefaultText = "1";
             this.txtDesde.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
             this.txtDesde.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
             this.txtDesde.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
@@ -208,17 +209,17 @@
             this.guna2HtmlLabel1.BackColor = System.Drawing.Color.Transparent;
             this.guna2HtmlLabel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.guna2HtmlLabel1.ForeColor = System.Drawing.Color.Black;
-            this.guna2HtmlLabel1.Location = new System.Drawing.Point(18, 15);
+            this.guna2HtmlLabel1.Location = new System.Drawing.Point(83, 15);
             this.guna2HtmlLabel1.Name = "guna2HtmlLabel1";
-            this.guna2HtmlLabel1.Size = new System.Drawing.Size(100, 18);
+            this.guna2HtmlLabel1.Size = new System.Drawing.Size(39, 18);
             this.guna2HtmlLabel1.TabIndex = 8;
-            this.guna2HtmlLabel1.Text = "Simulaciones:";
+            this.guna2HtmlLabel1.Text = "Días:";
             // 
             // txtSimulaciones
             // 
             this.txtSimulaciones.BorderRadius = 2;
             this.txtSimulaciones.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.txtSimulaciones.DefaultText = "";
+            this.txtSimulaciones.DefaultText = "10";
             this.txtSimulaciones.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
             this.txtSimulaciones.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
             this.txtSimulaciones.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
@@ -240,6 +241,9 @@
             this.gpDescripcionRespuesta.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.gpDescripcionRespuesta.BorderRadius = 2;
+            this.gpDescripcionRespuesta.Controls.Add(this.guna2HtmlLabel9);
+            this.gpDescripcionRespuesta.Controls.Add(this.txtProbabilidadVB);
+            this.gpDescripcionRespuesta.Controls.Add(this.guna2HtmlLabel8);
             this.gpDescripcionRespuesta.Controls.Add(this.txtVeteBB);
             this.gpDescripcionRespuesta.Controls.Add(this.txtVeteBA);
             this.gpDescripcionRespuesta.Controls.Add(this.txtVeteAB);
@@ -265,6 +269,50 @@
             this.gpDescripcionRespuesta.TabIndex = 4;
             this.gpDescripcionRespuesta.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
+            // guna2HtmlLabel9
+            // 
+            this.guna2HtmlLabel9.BackColor = System.Drawing.Color.Transparent;
+            this.guna2HtmlLabel9.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guna2HtmlLabel9.ForeColor = System.Drawing.Color.Black;
+            this.guna2HtmlLabel9.Location = new System.Drawing.Point(516, 12);
+            this.guna2HtmlLabel9.Name = "guna2HtmlLabel9";
+            this.guna2HtmlLabel9.Size = new System.Drawing.Size(393, 18);
+            this.guna2HtmlLabel9.TabIndex = 68;
+            this.guna2HtmlLabel9.Text = "Parámetros para probabilidad de elección de peluquero";
+            // 
+            // txtProbabilidadVB
+            // 
+            this.txtProbabilidadVB.BorderRadius = 2;
+            this.txtProbabilidadVB.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.txtProbabilidadVB.DefaultText = "";
+            this.txtProbabilidadVB.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
+            this.txtProbabilidadVB.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.txtProbabilidadVB.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.txtProbabilidadVB.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.txtProbabilidadVB.Enabled = false;
+            this.txtProbabilidadVB.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.txtProbabilidadVB.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            this.txtProbabilidadVB.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.txtProbabilidadVB.Location = new System.Drawing.Point(817, 90);
+            this.txtProbabilidadVB.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.txtProbabilidadVB.Name = "txtProbabilidadVB";
+            this.txtProbabilidadVB.PasswordChar = '\0';
+            this.txtProbabilidadVB.PlaceholderText = "";
+            this.txtProbabilidadVB.SelectedText = "";
+            this.txtProbabilidadVB.Size = new System.Drawing.Size(54, 21);
+            this.txtProbabilidadVB.TabIndex = 67;
+            // 
+            // guna2HtmlLabel8
+            // 
+            this.guna2HtmlLabel8.BackColor = System.Drawing.Color.Transparent;
+            this.guna2HtmlLabel8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guna2HtmlLabel8.ForeColor = System.Drawing.Color.Black;
+            this.guna2HtmlLabel8.Location = new System.Drawing.Point(793, 91);
+            this.guna2HtmlLabel8.Name = "guna2HtmlLabel8";
+            this.guna2HtmlLabel8.Size = new System.Drawing.Size(17, 18);
+            this.guna2HtmlLabel8.TabIndex = 66;
+            this.guna2HtmlLabel8.Text = "B:";
+            // 
             // txtVeteBB
             // 
             this.txtVeteBB.BorderRadius = 2;
@@ -277,7 +325,7 @@
             this.txtVeteBB.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtVeteBB.Font = new System.Drawing.Font("Segoe UI", 9.75F);
             this.txtVeteBB.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txtVeteBB.Location = new System.Drawing.Point(480, 91);
+            this.txtVeteBB.Location = new System.Drawing.Point(491, 91);
             this.txtVeteBB.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.txtVeteBB.Name = "txtVeteBB";
             this.txtVeteBB.PasswordChar = '\0';
@@ -298,7 +346,7 @@
             this.txtVeteBA.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtVeteBA.Font = new System.Drawing.Font("Segoe UI", 9.75F);
             this.txtVeteBA.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txtVeteBA.Location = new System.Drawing.Point(432, 91);
+            this.txtVeteBA.Location = new System.Drawing.Point(443, 91);
             this.txtVeteBA.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.txtVeteBA.Name = "txtVeteBA";
             this.txtVeteBA.PasswordChar = '\0';
@@ -319,7 +367,7 @@
             this.txtVeteAB.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtVeteAB.Font = new System.Drawing.Font("Segoe UI", 9.75F);
             this.txtVeteAB.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txtVeteAB.Location = new System.Drawing.Point(480, 57);
+            this.txtVeteAB.Location = new System.Drawing.Point(491, 57);
             this.txtVeteAB.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.txtVeteAB.Name = "txtVeteAB";
             this.txtVeteAB.PasswordChar = '\0';
@@ -340,7 +388,7 @@
             this.txtVeteAA.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtVeteAA.Font = new System.Drawing.Font("Segoe UI", 9.75F);
             this.txtVeteAA.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txtVeteAA.Location = new System.Drawing.Point(432, 57);
+            this.txtVeteAA.Location = new System.Drawing.Point(443, 57);
             this.txtVeteAA.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.txtVeteAA.Name = "txtVeteAA";
             this.txtVeteAA.PasswordChar = '\0';
@@ -361,7 +409,7 @@
             this.txtAprendizB.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtAprendizB.Font = new System.Drawing.Font("Segoe UI", 9.75F);
             this.txtAprendizB.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txtAprendizB.Location = new System.Drawing.Point(204, 91);
+            this.txtAprendizB.Location = new System.Drawing.Point(214, 91);
             this.txtAprendizB.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.txtAprendizB.Name = "txtAprendizB";
             this.txtAprendizB.PasswordChar = '\0';
@@ -382,7 +430,7 @@
             this.txtAprendizA.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtAprendizA.Font = new System.Drawing.Font("Segoe UI", 9.75F);
             this.txtAprendizA.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txtAprendizA.Location = new System.Drawing.Point(156, 91);
+            this.txtAprendizA.Location = new System.Drawing.Point(166, 91);
             this.txtAprendizA.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.txtAprendizA.Name = "txtAprendizA";
             this.txtAprendizA.PasswordChar = '\0';
@@ -403,7 +451,7 @@
             this.txtLlegadaB.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtLlegadaB.Font = new System.Drawing.Font("Segoe UI", 9.75F);
             this.txtLlegadaB.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txtLlegadaB.Location = new System.Drawing.Point(204, 57);
+            this.txtLlegadaB.Location = new System.Drawing.Point(214, 57);
             this.txtLlegadaB.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.txtLlegadaB.Name = "txtLlegadaB";
             this.txtLlegadaB.PasswordChar = '\0';
@@ -481,33 +529,33 @@
             this.guna2HtmlLabel15.BackColor = System.Drawing.Color.Transparent;
             this.guna2HtmlLabel15.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.guna2HtmlLabel15.ForeColor = System.Drawing.Color.Black;
-            this.guna2HtmlLabel15.Location = new System.Drawing.Point(259, 12);
+            this.guna2HtmlLabel15.Location = new System.Drawing.Point(66, 12);
             this.guna2HtmlLabel15.Name = "guna2HtmlLabel15";
-            this.guna2HtmlLabel15.Size = new System.Drawing.Size(83, 18);
+            this.guna2HtmlLabel15.Size = new System.Drawing.Size(284, 18);
             this.guna2HtmlLabel15.TabIndex = 50;
-            this.guna2HtmlLabel15.Text = "Parametros";
+            this.guna2HtmlLabel15.Text = "Parámetros para distribución de eventos";
             // 
             // guna2HtmlLabel6
             // 
             this.guna2HtmlLabel6.BackColor = System.Drawing.Color.Transparent;
             this.guna2HtmlLabel6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.guna2HtmlLabel6.ForeColor = System.Drawing.Color.Black;
-            this.guna2HtmlLabel6.Location = new System.Drawing.Point(326, 57);
+            this.guna2HtmlLabel6.Location = new System.Drawing.Point(276, 57);
             this.guna2HtmlLabel6.Name = "guna2HtmlLabel6";
-            this.guna2HtmlLabel6.Size = new System.Drawing.Size(99, 18);
+            this.guna2HtmlLabel6.Size = new System.Drawing.Size(160, 18);
             this.guna2HtmlLabel6.TabIndex = 9;
-            this.guna2HtmlLabel6.Text = "Veterano A U:";
+            this.guna2HtmlLabel6.Text = "Fin Atn Veterano A (U):";
             // 
             // guna2HtmlLabel5
             // 
             this.guna2HtmlLabel5.BackColor = System.Drawing.Color.Transparent;
             this.guna2HtmlLabel5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.guna2HtmlLabel5.ForeColor = System.Drawing.Color.Black;
-            this.guna2HtmlLabel5.Location = new System.Drawing.Point(326, 91);
+            this.guna2HtmlLabel5.Location = new System.Drawing.Point(276, 91);
             this.guna2HtmlLabel5.Name = "guna2HtmlLabel5";
-            this.guna2HtmlLabel5.Size = new System.Drawing.Size(99, 18);
+            this.guna2HtmlLabel5.Size = new System.Drawing.Size(160, 18);
             this.guna2HtmlLabel5.TabIndex = 6;
-            this.guna2HtmlLabel5.Text = "Veterano B         U:";
+            this.guna2HtmlLabel5.Text = "Fin Atn Veterano B         (U):";
             // 
             // guna2HtmlLabel7
             // 
@@ -516,20 +564,20 @@
             this.guna2HtmlLabel7.ForeColor = System.Drawing.Color.Black;
             this.guna2HtmlLabel7.Location = new System.Drawing.Point(12, 57);
             this.guna2HtmlLabel7.Name = "guna2HtmlLabel7";
-            this.guna2HtmlLabel7.Size = new System.Drawing.Size(137, 18);
+            this.guna2HtmlLabel7.Size = new System.Drawing.Size(147, 18);
             this.guna2HtmlLabel7.TabIndex = 10;
-            this.guna2HtmlLabel7.Text = "Llegada clientes    U:";
+            this.guna2HtmlLabel7.Text = "Llegada clientes    (U):";
             // 
             // guna2HtmlLabel4
             // 
             this.guna2HtmlLabel4.BackColor = System.Drawing.Color.Transparent;
             this.guna2HtmlLabel4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.guna2HtmlLabel4.ForeColor = System.Drawing.Color.Black;
-            this.guna2HtmlLabel4.Location = new System.Drawing.Point(66, 91);
+            this.guna2HtmlLabel4.Location = new System.Drawing.Point(12, 91);
             this.guna2HtmlLabel4.Name = "guna2HtmlLabel4";
-            this.guna2HtmlLabel4.Size = new System.Drawing.Size(83, 18);
+            this.guna2HtmlLabel4.Size = new System.Drawing.Size(144, 18);
             this.guna2HtmlLabel4.TabIndex = 6;
-            this.guna2HtmlLabel4.Text = "Aprendiz    U:";
+            this.guna2HtmlLabel4.Text = "Fin Atn Aprendiz    (U):";
             // 
             // txtLleagaA
             // 
@@ -543,7 +591,7 @@
             this.txtLleagaA.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtLleagaA.Font = new System.Drawing.Font("Segoe UI", 9.75F);
             this.txtLleagaA.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txtLleagaA.Location = new System.Drawing.Point(156, 57);
+            this.txtLleagaA.Location = new System.Drawing.Point(166, 57);
             this.txtLleagaA.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.txtLleagaA.Name = "txtLleagaA";
             this.txtLleagaA.PasswordChar = '\0';
@@ -596,8 +644,8 @@
             this.dgvEventos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.dgvEventos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvEventos.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Dia,
             this.Numero,
+            this.Dia,
             this.Evento,
             this.Reloj,
             this.fin_dia,
@@ -617,10 +665,8 @@
             this.cola_veteA,
             this.estado_veteB,
             this.cola_veteB,
-            this.contador_dias,
             this.total_recaudacion,
             this.promedio_recaudacion,
-            this.clientes_simultaneos,
             this.clientes_maximos});
             dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.Window;
@@ -642,14 +688,6 @@
             this.dgvEventos.Size = new System.Drawing.Size(1230, 440);
             this.dgvEventos.TabIndex = 48;
             // 
-            // Dia
-            // 
-            this.Dia.Frozen = true;
-            this.Dia.HeaderText = "Dia";
-            this.Dia.Name = "Dia";
-            this.Dia.ReadOnly = true;
-            this.Dia.Width = 70;
-            // 
             // Numero
             // 
             this.Numero.Frozen = true;
@@ -658,6 +696,14 @@
             this.Numero.Name = "Numero";
             this.Numero.ReadOnly = true;
             this.Numero.Width = 70;
+            // 
+            // Dia
+            // 
+            this.Dia.Frozen = true;
+            this.Dia.HeaderText = "Dia";
+            this.Dia.Name = "Dia";
+            this.Dia.ReadOnly = true;
+            this.Dia.Width = 70;
             // 
             // Evento
             // 
@@ -690,7 +736,7 @@
             // 
             // rnd_llegada
             // 
-            this.rnd_llegada.HeaderText = "RND";
+            this.rnd_llegada.HeaderText = "RND llegada";
             this.rnd_llegada.MinimumWidth = 8;
             this.rnd_llegada.Name = "rnd_llegada";
             this.rnd_llegada.ReadOnly = true;
@@ -714,7 +760,7 @@
             // 
             // rnd_atencion
             // 
-            this.rnd_atencion.HeaderText = "RND";
+            this.rnd_atencion.HeaderText = "RND fin atención";
             this.rnd_atencion.Name = "rnd_atencion";
             this.rnd_atencion.ReadOnly = true;
             // 
@@ -748,11 +794,9 @@
             // 
             // rnd_peluquero
             // 
-            this.rnd_peluquero.HeaderText = "RND";
-            this.rnd_peluquero.MinimumWidth = 8;
+            this.rnd_peluquero.HeaderText = "RND elección";
             this.rnd_peluquero.Name = "rnd_peluquero";
             this.rnd_peluquero.ReadOnly = true;
-            this.rnd_peluquero.Width = 80;
             // 
             // peluquero
             // 
@@ -814,12 +858,6 @@
             this.cola_veteB.Name = "cola_veteB";
             this.cola_veteB.ReadOnly = true;
             // 
-            // contador_dias
-            // 
-            this.contador_dias.HeaderText = "Contador dias";
-            this.contador_dias.Name = "contador_dias";
-            this.contador_dias.ReadOnly = true;
-            // 
             // total_recaudacion
             // 
             this.total_recaudacion.HeaderText = "AC Total recaudacion";
@@ -831,12 +869,6 @@
             this.promedio_recaudacion.HeaderText = "Prom recaudacion x dia";
             this.promedio_recaudacion.Name = "promedio_recaudacion";
             this.promedio_recaudacion.ReadOnly = true;
-            // 
-            // clientes_simultaneos
-            // 
-            this.clientes_simultaneos.HeaderText = "Cant clientes en simultaneo";
-            this.clientes_simultaneos.Name = "clientes_simultaneos";
-            this.clientes_simultaneos.ReadOnly = true;
             // 
             // clientes_maximos
             // 
@@ -894,8 +926,11 @@
         private Guna.UI2.WinForms.Guna2TextBox txtDesde;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel1;
         private Guna.UI2.WinForms.Guna2TextBox txtSimulaciones;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Dia;
+        private Guna.UI2.WinForms.Guna2TextBox txtProbabilidadVB;
+        private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel8;
+        private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel9;
         private System.Windows.Forms.DataGridViewTextBoxColumn Numero;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Dia;
         private System.Windows.Forms.DataGridViewTextBoxColumn Evento;
         private System.Windows.Forms.DataGridViewTextBoxColumn Reloj;
         private System.Windows.Forms.DataGridViewTextBoxColumn fin_dia;
@@ -915,10 +950,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn cola_veteA;
         private System.Windows.Forms.DataGridViewTextBoxColumn estado_veteB;
         private System.Windows.Forms.DataGridViewTextBoxColumn cola_veteB;
-        private System.Windows.Forms.DataGridViewTextBoxColumn contador_dias;
         private System.Windows.Forms.DataGridViewTextBoxColumn total_recaudacion;
         private System.Windows.Forms.DataGridViewTextBoxColumn promedio_recaudacion;
-        private System.Windows.Forms.DataGridViewTextBoxColumn clientes_simultaneos;
         private System.Windows.Forms.DataGridViewTextBoxColumn clientes_maximos;
     }
 }

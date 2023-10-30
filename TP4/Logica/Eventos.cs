@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using Guna.UI2.AnimatorNS;
@@ -15,9 +16,8 @@ namespace TP4.Logica
         private Fila fila;
         private int id;
 
-        public double desde;
-        public double hasta;
-
+        public int maximoSillas;
+ 
         public Eventos(Fila fila, GestorSimulacionTP4 gestor)
         {
             this.fila = fila;
@@ -30,7 +30,7 @@ namespace TP4.Logica
             id++;
             gestor.generarTiempoProximaLlegada();
 
-            fila.rnd_peluquero = gestor.rndPeluquero.NextDouble();
+            fila.rnd_peluquero = Math.Round(gestor.rndPeluquero.NextDouble(), 2);
 
             Cliente cliente = primerCliente(fila.rnd_peluquero);
             fila.peluquero = cliente.peluquero_elegido;
@@ -44,13 +44,14 @@ namespace TP4.Logica
 
         private Cliente primerCliente(double rnd_peluquero)
         {
+
             Cliente cliente;
-            if (rnd_peluquero < 0.15)
+            if (rnd_peluquero <= gestor.probabilidadAp)
             {
                 cliente = new Cliente((double)Peluquero.A);
                 consultarColaAprendiz(cliente);
             }
-            else if (rnd_peluquero > 0.14 && rnd_peluquero < 0.60)
+            else if (rnd_peluquero <= gestor.probabilidadAp + gestor.probabilidadVA)
             {
                 cliente = new Cliente((double)Peluquero.B);
                 consultarColaVeteranoA(cliente);
@@ -70,7 +71,6 @@ namespace TP4.Logica
             //Preguntamos si el veteranoA esta libre
             if (gestor.peluqueroVeteB.empleado.estado == (double)EstadosEmpleados.libre)
             {
-                desde = fila.Reloj;
                 gestor.peluqueroVeteB.empleado.estado = (double)EstadosEmpleados.ocupado;
 
                 gestor.peluqueroVeteB.empleado.cliente = cliente;
@@ -78,13 +78,13 @@ namespace TP4.Logica
                 gestor.generarTiempoAtencionVeteB();
 
                 cliente.estado = (double)Estado.siendo_atendidoB; //Cliente en atencion
-                cliente.hora_atencion = fila.Reloj;
             }
             else
             {
                 gestor.peluqueroVeteB.cola.Enqueue(cliente);
 
                 cliente.estado = (double)Estado.esperando_atencionB; //Cliente esperando
+                cliente.hora_refrigerio = fila.Reloj + 30;
             }
         }
 
@@ -93,7 +93,6 @@ namespace TP4.Logica
             //Preguntamos si el veteranoA esta libre
             if (gestor.peluqueroVeteA.empleado.estado == (double)EstadosEmpleados.libre)
             {
-                desde = fila.Reloj;
                 gestor.peluqueroVeteA.empleado.estado = (double)EstadosEmpleados.ocupado;
 
                 gestor.peluqueroVeteA.empleado.cliente = cliente;
@@ -101,13 +100,13 @@ namespace TP4.Logica
                 gestor.generarTiempoAtencionVeteA();
 
                 cliente.estado = (double)Estado.siendo_atendidoA; //Cliente en atencion
-                cliente.hora_atencion = fila.Reloj;
             }
             else
             {
                 gestor.peluqueroVeteA.cola.Enqueue(cliente);
 
                 cliente.estado = (double)Estado.esperando_atencionA; //Cliente esperando
+                cliente.hora_refrigerio = fila.Reloj + 30;
             }
         }
 
@@ -116,7 +115,6 @@ namespace TP4.Logica
             //Preguntamos si el aprendiz esta libre
             if (gestor.peluqueroAprendiz.empleado.estado == (double)EstadosEmpleados.libre)
             {
-                desde = fila.Reloj;
                 gestor.peluqueroAprendiz.empleado.estado = (double)EstadosEmpleados.ocupado;
 
                 gestor.peluqueroAprendiz.empleado.cliente = cliente;
@@ -124,19 +122,24 @@ namespace TP4.Logica
                 gestor.generarTiempoAtencionAP();
 
                 cliente.estado = (double)Estado.siendo_atendidoAp; //Cliente en atencion
-                cliente.hora_atencion = fila.Reloj;
             }
             else
             {
                 gestor.peluqueroAprendiz.cola.Enqueue(cliente);
 
                 cliente.estado = (double)Estado.esperando_atencionAp; //Cliente esperando
+                cliente.hora_refrigerio = fila.Reloj + 30;
             }
         }
 
         public void finAtencionAprendiz(Cliente clienteFin)
         {
-            
+            //Acumulador para la recaudacion
+            fila.total_recaudacion = fila.total_recaudacion + 1800;
+
+            //Acumulador para el promedio
+            fila.promedio_recaudacion = fila.total_recaudacion / gestor.numeroDia;
+
             clienteAtendido(clienteFin); //Borramos los clientes atendidos
 
             //Ponemos en libre el aprendiz
@@ -154,6 +157,12 @@ namespace TP4.Logica
 
         public void finAtencionVeteA(Cliente clienteFin)
         {
+            //Acumulador para la recaudacion
+            fila.total_recaudacion = fila.total_recaudacion + 3500;
+
+            //Acumulador para el promedio
+            fila.promedio_recaudacion = fila.total_recaudacion / gestor.numeroDia;
+
             clienteAtendido(clienteFin); //Borramos los clientes atendidos
 
             //Ponemos en libre veteranoA
@@ -171,6 +180,12 @@ namespace TP4.Logica
 
         public void finAtencionVeteB(Cliente clienteFin)
         {
+            //Acumulador para la recaudacion
+            fila.total_recaudacion = fila.total_recaudacion + 3500;
+
+            //Acumulador para el promedio
+            fila.promedio_recaudacion = fila.total_recaudacion / gestor.numeroDia;
+
             clienteAtendido(clienteFin); //Borramos los clientes atendidos
 
             //Ponemos en libre veteranoB
@@ -198,6 +213,17 @@ namespace TP4.Logica
             fila.Reloj = 0;
             fila.fin_dia = 480;
             gestor.generarTiempoProximaLlegada();
+        }
+
+        public int cantidadMaximaSillas()
+        {
+            int cantidadActualClientesEsperando = gestor.peluqueroAprendiz.cola.Count + gestor.peluqueroVeteA.cola.Count + gestor.peluqueroVeteB.cola.Count;
+
+            gestor.peluqueroAprendiz.cola.Count();
+            gestor.peluqueroVeteA.cola.Count();
+            gestor.peluqueroVeteB.cola.Count();
+
+            return cantidadActualClientesEsperando;
         }
     }
 }

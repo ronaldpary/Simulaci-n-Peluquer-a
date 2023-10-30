@@ -27,10 +27,8 @@ namespace TP4.Logica
         public double cola_veteA { get; set; } = -1;
         public double estado_veteB { get; set; } = -1;
         public double cola_veteB { get; set; } = -1;
-        public double contador_dias { get; set; } = 0;
         public double total_recaudacion { get; set; } = 0;
         public double promedio_recaudacion { get; set; } = 0;
-        public double clientes_simultaneos { get; set; } = 0;
         public double clientes_maximos { get; set; } = 0;
 
         #endregion
