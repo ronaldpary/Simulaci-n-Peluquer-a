@@ -79,6 +79,12 @@ namespace TP4.Logica
                 gestor.generarTiempoAtencionVeteB();
 
                 cliente.estado = (double)Estado.siendo_atendidoB; //Cliente en atencion
+
+                if (cliente.hora_refrigerio > fila.Reloj)
+                {
+                    cliente.bandera_refrigerio = 1;
+                    //cliente.hora_refrigerio = 0;
+                }
             }
             else
             {
@@ -104,6 +110,12 @@ namespace TP4.Logica
                 gestor.generarTiempoAtencionVeteA();
 
                 cliente.estado = (double)Estado.siendo_atendidoA; //Cliente en atencion
+
+                if (cliente.hora_refrigerio > fila.Reloj)
+                {
+                    cliente.bandera_refrigerio = 1;
+                    //cliente.hora_refrigerio = 0;
+                }
             }
             else
             {
@@ -129,6 +141,12 @@ namespace TP4.Logica
                 gestor.generarTiempoAtencionAP();
 
                 cliente.estado = (double)Estado.siendo_atendidoAp; //Cliente en atencion
+
+                if (cliente.hora_refrigerio > fila.Reloj)
+                {
+                    //cliente.hora_refrigerio = 0;
+                    cliente.bandera_refrigerio = 1;
+                }
             }
             else
             {
@@ -144,10 +162,14 @@ namespace TP4.Logica
 
         public void finAtencionAprendiz(Cliente clienteFin)
         {
+            if (fila.Reloj > 480)
+            {
+                fila.fin_dia = -1;
+            }
             //REFRI
             if (clienteFin.hora_inicio_espera != 0)
             {
-                if ((fila.Reloj - clienteFin.hora_inicio_espera) > 30)
+                if ((fila.Reloj - clienteFin.hora_inicio_espera) > 30 && clienteFin.tiene_refri == 1)
                 {
                     fila.total_recaudacion = fila.total_recaudacion + 1500;
                 }
@@ -157,7 +179,7 @@ namespace TP4.Logica
             fila.total_recaudacion = fila.total_recaudacion + 1800;
 
             //Acumulador para el promedio
-            fila.promedio_recaudacion = fila.total_recaudacion / gestor.numeroDia;
+            fila.promedio_recaudacion = Double.Parse(fila.total_recaudacion.ToString("F2"))/ Double.Parse(gestor.numeroDia.ToString("F2"));
 
             clienteAtendido(clienteFin); //Borramos los clientes atendidos
 
@@ -176,20 +198,25 @@ namespace TP4.Logica
 
         public void finAtencionVeteA(Cliente clienteFin)
         {
+            if (fila.Reloj > 480)
+            {
+                fila.fin_dia = -1;
+            }
             //REFRI
             if (clienteFin.hora_inicio_espera != 0)
             {
-                if ((fila.Reloj - clienteFin.hora_inicio_espera) > 30)
+                if ((fila.Reloj - clienteFin.hora_inicio_espera) > 30 && clienteFin.tiene_refri == 1)
                 {
                     fila.total_recaudacion = fila.total_recaudacion + 1500;
                 }
+                
             }
 
             //Acumulador para la recaudacion
             fila.total_recaudacion = fila.total_recaudacion + 3500;
 
             //Acumulador para el promedio
-            fila.promedio_recaudacion = fila.total_recaudacion / gestor.numeroDia;
+            fila.promedio_recaudacion = Double.Parse(fila.total_recaudacion.ToString("F2")) / Double.Parse(gestor.numeroDia.ToString("F2"));
 
             clienteAtendido(clienteFin); //Borramos los clientes atendidos
 
@@ -208,10 +235,14 @@ namespace TP4.Logica
 
         public void finAtencionVeteB(Cliente clienteFin)
         {
+            if (fila.Reloj > 480)
+            {
+                fila.fin_dia = -1;
+            }
             //REFRI
             if (clienteFin.hora_inicio_espera != 0)
             {
-                if ((fila.Reloj - clienteFin.hora_inicio_espera) > 30)
+                if ((fila.Reloj - clienteFin.hora_inicio_espera) > 30 && clienteFin.tiene_refri == 1)
                 {
                     fila.total_recaudacion = fila.total_recaudacion + 1500;
                 }
@@ -221,7 +252,7 @@ namespace TP4.Logica
             fila.total_recaudacion = fila.total_recaudacion + 3500;
 
             //Acumulador para el promedio
-            fila.promedio_recaudacion = fila.total_recaudacion / gestor.numeroDia;
+            fila.promedio_recaudacion = Double.Parse(fila.total_recaudacion.ToString("F2")) / Double.Parse(gestor.numeroDia.ToString("F2"));
 
             clienteAtendido(clienteFin); //Borramos los clientes atendidos
 
@@ -246,9 +277,9 @@ namespace TP4.Logica
 
         public void finDia()
         {
-            fila.Reloj = 0;
+            //fila.Reloj = 0;
             fila.fin_dia = Double.Parse(480.ToString("F2"));
-            gestor.generarTiempoProximaLlegada();
+            //gestor.generarTiempoProximaLlegada();
         }
 
         public int cantidadMaximaSillas()

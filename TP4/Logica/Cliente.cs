@@ -13,6 +13,12 @@ namespace TP4.Logica
         public double estado { get; set; }
         public double hora_refrigerio { get; set; } = 0;
         public double peluquero_elegido { get; set; }
+        public double tiene_refri { get; set; } = 0;
+        public int col { get; set; } = -1;
+
+        public int noMostrar { get; set; } = 0;
+
+        public int bandera_refrigerio { get; set; } = 0;
 
         //REFRI
         public double hora_inicio_espera { get; set; } = 0;
@@ -92,6 +98,16 @@ namespace TP4.Logica
             }
             return peluqueroActual;
         }
+
+        public bool isSiendoAtendido()
+        {
+            //Atenciones de cada peluquero o fue Atendido
+            return estado == 2 || estado == 4 || estado == 6 || estado == 7;
+        }
+
+
         #endregion
     }
+
+    
 }

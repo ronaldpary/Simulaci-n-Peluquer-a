@@ -57,5 +57,24 @@ namespace TP4.Logica
         }
 
         #endregion
+        public void limpiarColumnasFinDia()
+        {
+            rnd_peluquero = -1;
+            peluquero = -1;
+            estado_aprendiz = -1;
+            cola_aprendiz = -1;
+            estado_veteA = -1;
+            cola_veteA = -1;
+            estado_veteB = -1;
+            cola_veteB = -1;
+            //total_recaudacion = 0;
+            //promedio_recaudacion = 0;
+            //clientes_maximos = 0;
+        }
+
+        internal void limpiarColumnasTiempoAtencion()
+        {
+            tiempo_atencion = -1;
+        }
     }
 }

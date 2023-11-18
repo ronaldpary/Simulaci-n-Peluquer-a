@@ -36,6 +36,9 @@ namespace TP4.Presentacion
             txtProbabilidadA.Text = this.parametros.probabilidadAprendiz.ToString();
             txtProbabilidadVA.Text = this.parametros.probabilidadVeteranoA.ToString();
             txtProbabilidadVB.Text = this.parametros.probabilidadVeteranoB.ToString();
+            txtH.Text = this.parametros.h.ToString();
+            txtTAprendiz.Text = this.parametros.TAprendiz.ToString();
+            txtTVeterano.Text = this.parametros.TVeterano.ToString();
         }
 
         private void btnComenzar_Click(object sender, EventArgs e)
@@ -51,6 +54,32 @@ namespace TP4.Presentacion
                 if (probabilidadVB < 0)
                 {
                     MessageBox.Show("Las probabilidades no deben superar 1");
+                } else if (Convert.ToDouble(txtAprendizA.Text) > Convert.ToDouble(txtAprendizB.Text)) {
+                    MessageBox.Show("Aprendiz: B no debe ser mayor a A");
+                }
+                else if (Convert.ToDouble(txtVeteAA.Text) > Convert.ToDouble(txtVeteAB.Text))
+                {
+                    MessageBox.Show("Veterano A: B no debe ser mayor a A");
+                }
+                else if (Convert.ToDouble(txtVeteBA.Text) > Convert.ToDouble(txtVeteBB.Text))
+                {
+                    MessageBox.Show("Veterano B: B no debe ser mayor a A");
+                }
+                else if (Convert.ToDouble(txtLleagaA.Text) > Convert.ToDouble(txtLlegadaB.Text))
+                {
+                    MessageBox.Show("Llegada: B no debe ser mayor a A");
+                }
+                else if (Convert.ToDouble(txtDesde.Text) > Convert.ToDouble(txtHasta.Text))
+                {
+                    MessageBox.Show("Desde no puede ser mayor a Hasta.");
+                }
+                else if (Convert.ToDouble(txtProbabilidadA.Text) < 0 || Convert.ToDouble(txtProbabilidadA.Text) > 1)
+                {
+                    MessageBox.Show("La probabilidad debe estar entre 0 y 1.");
+                }
+                else if (Convert.ToDouble(txtProbabilidadVA.Text) < 0 || Convert.ToDouble(txtProbabilidadVA.Text) > 1 )
+                {
+                    MessageBox.Show("La probabilidad debe estar entre 0 y 1.");
                 }
                 else
                 {
@@ -87,6 +116,9 @@ namespace TP4.Presentacion
             if (txtProbabilidadA.Text != "") { parametros.probabilidadAprendiz = Convert.ToDouble(txtProbabilidadA.Text); }
             if (txtProbabilidadVA.Text != "") { parametros.probabilidadVeteranoA = Convert.ToDouble(txtProbabilidadVA.Text); }
             if (txtProbabilidadVB.Text != "") { parametros.probabilidadVeteranoB = 1 - (Convert.ToDouble(txtProbabilidadA.Text) + Convert.ToDouble(txtProbabilidadVA.Text)); }
+            if (txtH.Text != "") { parametros.h = Convert.ToDouble(txtH.Text); }
+            if (txtTAprendiz.Text != "") { parametros.TAprendiz = Convert.ToDouble(txtTAprendiz.Text); }
+            if (txtTVeterano.Text != "") { parametros.TVeterano = Convert.ToDouble(txtTVeterano.Text); }
         }
 
         private void MostrarError(string error)
@@ -96,70 +128,210 @@ namespace TP4.Presentacion
 
         public void mostrarFila(Fila fila, List<Cliente> enElSistema, double numeroDia, double numeroSimulacion, string nombreEvento)
         {
-            int index = dgvEventos.Rows.Add();
-            dgvEventos.Rows[index].Resizable = DataGridViewTriState.False;
 
-            PropertyInfo[] properties = typeof(Fila).GetProperties();
+            try {
+                int index = dgvEventos.Rows.Add();
+                dgvEventos.Rows[index].Resizable = DataGridViewTriState.False;
 
-            //Asignamos los estados correspondientes
-            foreach (PropertyInfo property in properties)
-            {
-                string nombreAtributo = property.Name;
+                PropertyInfo[] properties = typeof(Fila).GetProperties();
 
-                double valor = (double)property.GetValue(fila);
-                dgvEventos.Rows[index].Cells["Dia"].Value = numeroDia;
-                dgvEventos.Rows[index].Cells["Numero"].Value = numeroSimulacion;
-                dgvEventos.Rows[index].Cells["Evento"].Value = nombreEvento;
-
-                if (valor != -1)
+                //Asignamos los estados correspondientes
+                foreach (PropertyInfo property in properties)
                 {
-                    if (nombreAtributo == "estado_aprendiz" || nombreAtributo == "estado_veteA" || nombreAtributo == "estado_veteB")
-                    {
-                        string estado = valor == 0 ? "Libre" : "Ocupado";
-                        dgvEventos.Rows[index].Cells[nombreAtributo].Value = estado;
-                    }
-                    else
-                    {
-                        dgvEventos.Rows[index].Cells[nombreAtributo].Value = valor;
-                    }
+                    string nombreAtributo = property.Name;
 
-                    //if (nombreAtributo == "peluquero")
-                    //{
-                    //    string tipoPeluquero = valor == 1 ? "Aprendiz" : valor == 2 ? "VeteranoA" : "VeteranoB";
-                    //    dgvEventos.Rows[index].Cells[nombreAtributo].Value = tipoPeluquero;
-                    //}
-                    //else
-                    //{
-                    //    dgvEventos.Rows[index].Cells[nombreAtributo].Value = valor;
-                    //}
-                }
-            }
+                    double valor = (double)property.GetValue(fila);
+                    dgvEventos.Rows[index].Cells["Dia"].Value = numeroDia;
+                    dgvEventos.Rows[index].Cells["Numero"].Value = numeroSimulacion;
+                    dgvEventos.Rows[index].Cells["Evento"].Value = nombreEvento;
 
-            //Creamos las columnas de los clientes dinamicamente
-            if (enElSistema.Count != 0)
-            {
-                for (int i = 0; i < enElSistema.Count; i++)
-                {
-                    if (dgvEventos.Columns["Estado" + i.ToString()] != null)
+                    if (valor != -1)
                     {
-                        dgvEventos.Rows[index].Cells["Estado" + i.ToString()].Value = (enElSistema[i].estadoCliente(enElSistema[i].estado) + "(" + enElSistema[i].numero + ")").ToString();
-                        dgvEventos.Rows[index].Cells["HLLR" + i.ToString()].Value = Convert.ToDecimal(enElSistema[i].hora_refrigerio.ToString()).ToString("N");
-                        dgvEventos.Rows[index].Cells["HIE" + i.ToString()].Value = Convert.ToDecimal(enElSistema[i].hora_inicio_espera.ToString()).ToString("N");
-                    }
-                    else
-                    {
-                        int indiceColumna = dgvEventos.Columns.Add("Estado" + i.ToString(), "Estado");
-                        dgvEventos.Rows[index].Cells[indiceColumna].Value = (enElSistema[i].estadoCliente(enElSistema[i].estado) + "(" + enElSistema[i].numero + ")").ToString();
+                        if (nombreAtributo == "estado_aprendiz" || nombreAtributo == "estado_veteA" || nombreAtributo == "estado_veteB")
+                        {
+                            string estado = valor == 0 ? "Libre" : "Ocupado";
+                            dgvEventos.Rows[index].Cells[nombreAtributo].Value = estado;
+                        }
+                        else
+                        {
+                            dgvEventos.Rows[index].Cells[nombreAtributo].Value = valor;
+                        }
 
-                        int indiceColumna2 = dgvEventos.Columns.Add("HLLR" + i.ToString(), "HLLR");
-                        dgvEventos.Rows[index].Cells[indiceColumna2].Value = Convert.ToDecimal(enElSistema[i].hora_refrigerio.ToString()).ToString("N");
-
-                        int indiceColumna3 = dgvEventos.Columns.Add("HIE" + i.ToString(), "HIE");
-                        dgvEventos.Rows[index].Cells[indiceColumna3].Value = Convert.ToDecimal(enElSistema[i].hora_inicio_espera.ToString()).ToString("N");
 
                     }
                 }
+
+                //Creamos las columnas de los clientes dinamicamente //VERSION CON FALLO DE EXCESO DE COLUMNAS, DESCOMENTAR ESTO Y COMENTAR EL METODO DE ELIMINAR CLIENTESELIMINADOS QUE ESTA EN EL GESTOR
+
+
+                if (enElSistema.Count != 0)
+                {
+                    if (int.Parse(txtDesde.Text) == numeroSimulacion)
+                    {
+                        //if (enElSistema.All(Cliente => Cliente.estado == 7))
+                        //{
+                        //  enElSistema.RemoveAt(i);
+                        //}
+                        enElSistema.RemoveAll(Cliente => Cliente.estado == 7);
+                    }
+
+                    for (int i = 0; i < enElSistema.Count; i++)
+                    {
+
+                        
+
+
+                        if (dgvEventos.Columns["Estado" + i.ToString()] != null)
+                        {
+
+                            if (enElSistema[i].noMostrar == 1)
+                            {
+                                dgvEventos.Rows[index].Cells["Estado" + i.ToString()].Value = "";
+                                dgvEventos.Rows[index].Cells["HLLR" + i.ToString()].Value = "";
+                            }
+                            else
+                            {
+                                dgvEventos.Rows[index].Cells["Estado" + i.ToString()].Value = (enElSistema[i].estadoCliente(enElSistema[i].estado) + "(" + enElSistema[i].numero + ")").ToString();
+
+                                if (enElSistema[i].bandera_refrigerio == 1)
+                                {
+                                    dgvEventos.Rows[index].Cells["HLLR" + i.ToString()].Value = 0;
+                                }
+                                else
+                                {
+                                    dgvEventos.Rows[index].Cells["HLLR" + i.ToString()].Value = Convert.ToDecimal(enElSistema[i].hora_refrigerio.ToString()).ToString("N");
+                                }
+
+                                if (enElSistema[i].estado == 7)
+                                {
+                                    enElSistema[i].noMostrar = 1;
+                                }
+                            }
+
+
+
+                        }
+                        else
+                        {
+                            int indiceColumna = dgvEventos.Columns.Add("Estado" + i.ToString(), "Estado");
+                            dgvEventos.Rows[index].Cells[indiceColumna].Value = (enElSistema[i].estadoCliente(enElSistema[i].estado) + "(" + enElSistema[i].numero + ")").ToString();
+
+                            int indiceColumna2 = dgvEventos.Columns.Add("HLLR" + i.ToString(), "HLLR");
+
+                            if (enElSistema[i].bandera_refrigerio == 1)
+                            {
+                                dgvEventos.Rows[index].Cells[indiceColumna2].Value = 0;
+                            }
+                            else
+                            {
+                                dgvEventos.Rows[index].Cells[indiceColumna2].Value = Convert.ToDecimal(enElSistema[i].hora_refrigerio.ToString()).ToString("N");
+                            }
+
+
+
+                        }
+                    }
+                }
+
+                //VERSION CON PERDIDA DE ALGUNAS CLIENTES
+
+                //if (enElSistema.Count != 0)
+                //{
+                //    for (int i = 0; i < enElSistema.Count; i++)
+                //    {
+
+                //        if (dgvEventos.Columns["Estado" + i.ToString()] != null)
+                //        {
+                //            //Verifica si todavia no tiene columna asiganada o si hay alguna vacio (cehquear lo ultimo)
+                //            if (enElSistema[i].col == -1 || (enElSistema[i].col == -1 && dgvEventos.Rows[index].Cells["Estado" + enElSistema[i].col.ToString()].Value == null))
+                //            {
+                //                enElSistema[i].col = i;
+                //            }
+
+                //            dgvEventos.Rows[index].Cells["Estado" + enElSistema[i].col.ToString()].Value = (enElSistema[i].estadoCliente(enElSistema[i].estado) + "(" + enElSistema[i].numero + ")").ToString() + enElSistema[i].col.ToString();
+
+                //            // Si está siendo atendido, lo setea en cero
+                //            if (enElSistema[i].isSiendoAtendido())
+                //            {
+                //                dgvEventos.Rows[index].Cells["HLLR" + enElSistema[i].col.ToString()].Value = 0.00d;
+                //            }
+                //            else
+                //            {
+                //                dgvEventos.Rows[index].Cells["HLLR" + enElSistema[i].col.ToString()].Value = Convert.ToDecimal(enElSistema[i].hora_refrigerio.ToString()).ToString("N");
+                //            }
+
+
+                //        }
+                //        else
+                //        {
+                //            if (enElSistema[i].col == -1)
+                //            {
+                //                enElSistema[i].col = i;
+                //            }
+                //            int indiceColumna = dgvEventos.Columns.Add("Estado" + i.ToString(), "Estado");
+
+                //            dgvEventos.Rows[index].Cells[indiceColumna].Value = (enElSistema[i].estadoCliente(enElSistema[i].estado) + "(" + enElSistema[i].numero + ")").ToString() + enElSistema[i].col.ToString();
+                //            int indiceColumna2 = dgvEventos.Columns.Add("HLLR" + enElSistema[i].col.ToString(), "HLLR");
+                //            // Si está siendo atendido, lo setea en cero
+                //            if (enElSistema[i].isSiendoAtendido())
+                //            {
+                //                dgvEventos.Rows[index].Cells[indiceColumna2].Value = 0.00d;
+                //            }
+                //            else
+                //            {
+                //                dgvEventos.Rows[index].Cells[indiceColumna2].Value = Convert.ToDecimal(enElSistema[i].hora_refrigerio.ToString()).ToString("N");
+                //            }
+
+
+
+
+                //        }
+                //    }
+                //}
+
             }
+            catch { }
+            
+
+        }
+
+        private void gpDescripcionRespuesta_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void CeldaClickeada(object sender, DataGridViewCellEventArgs e)
+        {
+            int indexColum = e.ColumnIndex;
+            int index = e.RowIndex;
+            string nombreColumna = dgvEventos.Columns[indexColum].Name.ToString();
+
+            if (nombreColumna == "fin_atencion_aprendiz")
+            {
+                double colaAprendiz = Convert.ToDouble(dgvEventos.Rows[index].Cells["cola_aprendiz"].Value.ToString());
+                ITipoEuler tipoEuler = new FinAtencionAprendiz();
+                EulerForm form = new EulerForm(parametros.h, 0, 0, tipoEuler, colaAprendiz, parametros.TAprendiz);
+                form.Show();
+            }
+            else if (nombreColumna == "fin_atencion_veteA")
+            {
+                double colaVeteA = Convert.ToDouble(dgvEventos.Rows[index].Cells["cola_veteA"].Value.ToString());
+                ITipoEuler tipoEuler = new FinAtencionVeteranoA();
+                EulerForm form = new EulerForm(parametros.h, 0, 0, tipoEuler, colaVeteA, parametros.TVeterano);
+                form.Show();
+            }
+            else if (nombreColumna == "fin_atencion_veteB")
+            {
+                double colaVeteB = Convert.ToDouble(dgvEventos.Rows[index].Cells["cola_veteB"].Value.ToString());
+                ITipoEuler tipoEuler = new FinAtencionVeteranoB();
+                EulerForm form = new EulerForm(parametros.h, 0, 0, tipoEuler, colaVeteB, parametros.TVeterano);
+                form.Show();
+            }
+        }
+
+        private void dgvEventos_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }

@@ -54,12 +54,19 @@
   <ItemGroup>
     <Compile Include="Logica\Cliente.cs" />
     <Compile Include="Logica\Empleado.cs" />
+    <Compile Include="Logica\Euler.cs" />
     <Compile Include="Logica\Eventos.cs" />
     <Compile Include="Logica\Fila.cs" />
     <Compile Include="Logica\Generadores.cs" />
     <Compile Include="Logica\GestorSimulacionTP4.cs" />
     <Compile Include="Logica\Parametros.cs" />
     <Compile Include="Logica\Peluqueria.cs" />
+    <Compile Include="Presentacion\EulerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentacion\EulerForm.Designer.cs">
+      <DependentUpon>EulerForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Presentacion\InterfazPeluqueria.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -74,6 +81,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Presentacion\EulerForm.resx">
+      <DependentUpon>EulerForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Presentacion\InterfazPeluqueria.resx">
       <DependentUpon>InterfazPeluqueria.cs</DependentUpon>
     </EmbeddedResource>
